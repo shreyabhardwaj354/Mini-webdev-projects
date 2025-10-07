@@ -1,0 +1,44 @@
+const but = document.querySelector('.but');
+const parah = document.querySelector('.parah');
+const contents = document.querySelector('.contents');
+
+function random()
+{
+    const random = Math.round(Math.random() * 10);
+    const name = ['neha', 'khushii', ' shneah', 'shivani', 'shyama', 'shruti', 'shivi', 'kirti', 'yakshita', 'nidhi'];
+    return name[random];
+}
+
+but.addEventListener('click', () => {
+    const randomName = random();
+    parah.innerHTML = `<input type="text" class="ans" placeholder="Enter your guess here">
+                        <div class="hints">
+                        <p class="hint">HINT 1<br>
+                        Length of name is '${randomName.length}'</p>
+                        <p class="hint">HINT 2<br>
+                        First word of name is '${randomName.slice(0,1)}'</p>
+                        <p class="hint">HINT 3<br>
+                        Last word of name is '${randomName.slice(-1,randomName.length)}'</p>
+                        </div>`
+    const ans = document.querySelector('.ans');
+    ans.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter')
+        {
+            const guess = ans.value;
+            check(guess, randomName);
+        }
+    })
+});
+
+function check(guess,randomName) {
+    if (guess === randomName)
+        contents.innerHTML = `<p style>Congratulations you have won! <br><br>
+            <button class='restart'>Restart</button></p>`
+    else 
+        contents.innerHTML = `<p>You Lost <br><br>
+            <button class='restart'>Restart</button></p>`
+    const restart = document.querySelector('.restart');
+    restart.addEventListener('click', () => {
+        window.location.reload(true);
+    })
+}
